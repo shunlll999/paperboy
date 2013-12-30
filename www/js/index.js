@@ -16,7 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+
+
 var app = {
+
+    
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -37,13 +42,49 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
+        /*var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
+        */
 
+        var game = new Phaser.Game(800, 600, Phaser.AUTO, 'deviceready', { preload: preload, create: create, update: update  });
         console.log('Received Event: ' + id);
+    },
+
+    preload: function () {    
+        console.log("loading...");
+    },
+
+    create: function () {
+        console.log("load complete");
+        this.game.stage.canvas.style['width'] = '100%';
+        this.game.stage.canvas.style['height'] = '100%';
+    },
+
+    update: function(){
+            
+
     }
+
 };
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'deviceready', { preload: preload, create: create, update: update  });
+
+function preload(){
+    console.log("loading...");
+}
+
+function create(){
+    console.log("load complete");
+    this.game.stage.canvas.style['width'] = '100%';
+    this.game.stage.canvas.style['height'] = '100%';
+}
+
+function update(){
+    
+}
+
+
