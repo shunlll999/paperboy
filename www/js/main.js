@@ -28,6 +28,7 @@ var loadingText;
 var homeBtn;
 
 var homeGroup;
+var infoGroup;
 
 function startControl(){
 	console.log("start control");
@@ -35,8 +36,10 @@ function startControl(){
 }
 
 function init(){
-	gameStage.load.image("rainballLogo", "images/rainballlogo.png");
-	gameStage.load.start();
+
+	//splash screen
+	//gameStage.load.image("rainballLogo", "images/rainballlogo.png");
+	//gameStage.load.start();
 
 	progressObj = gameStage.add.group();
 
@@ -63,15 +66,10 @@ function init(){
 }
 
 function preload(){
-	
 
 	gameStage.load.onFileComplete.add(updateProgressBar, this);
-
-	gameStage.load.image("rainballLogo", "images/rainballlogo.png");
-	gameStage.load.image('logoGame', 'images/mainlogp.png');
-	gameStage.load.image("background", "images/nainbg.png");
-	gameStage.load.image("footer", "images/footer.png");
-	gameStage.load.image("startBtn", "images/mainBTN.png");
+	loadingAssets();
+	
 }
 
 function updateProgressBar(progress){
@@ -79,15 +77,18 @@ function updateProgressBar(progress){
 	//loadingText.setText(text+" "+(progress)+" %");
 	var percent = (progress*285)/100;
 	console.log("loading... "+percent);
-
 	progressBar.drawRect((assetW-285)*0.5, (assetH-25)*0.5, percent, 25);
 	//loadingText.x = (assetW-loadingText.width)*0.5;
 }
 
 function create(){
 	console.log("created... ");
-	gameStage.add.sprite(0, 0, 'rainballLogo');
+
+	//splash screen
+	//gameStage.add.sprite(0, 0, 'rainballLogo');
+
 	homeGroup = gameStage.add.group();
+	infoGroup = gameStage.add.group();
 
 	gameStage.add.tween(progressObj).to({ y: -50, alpha:0 }, 1000, Phaser.Easing.Cubic.In, true);
 	logoRainball = GameAssets.createAsset( 'rainballLogo', gameStage.world.centerX, gameStage.world.centerY);
@@ -102,16 +103,41 @@ function destroySplash(){
 
 function renderHomeScreen(){
 
-	var home = new GameStageMeneger();
-	homeGroup = home.getScreen("Home");
-	home.addEventListener(onClickHandler);
+	//var home = new GameStageMeneger();
+	var home = new HomeScreen();
+	homeGroup = home.getScreen();
+	home.addEventListener("START.CLICK",onClickHandler);
+	home.addEventListener("INFO.CLICK",onClickHandler);
+
+	var info = new InfoPage();
+	infoGroup = info.getScreen();
+	infoGroup.x = -gameStage.world.width;
+	info.addEventListener("INFO.CLICK",onInfoClickHandler);
+
 
 
 }
 
 function onClickHandler(event){
-	console.log(event.key);
-	gameStage.add.tween(homeGroup).to({  y:gameStage.world.height }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+	console.log(" KEY "+event.phase);
+	switch(event.phase){
+		case "START.CLICK":
+			gameStage.add.tween(homeGroup).to({  y:gameStage.world.height }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+		break;
+
+		case "INFO.CLICK":
+			gameStage.add.tween(homeGroup).to({  x:gameStage.world.width }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+			gameStage.add.tween(infoGroup).to({  x:0 }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+		break;
+	}
+	
+}
+
+function onInfoClickHandler(target){
+
+	gameStage.add.tween(homeGroup).to({  x:0 }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+	gameStage.add.tween(infoGroup).to({  x:-gameStage.world.width }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+
 }
 
 function update(){
