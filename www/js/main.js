@@ -29,6 +29,7 @@ var homeBtn;
 
 var homeGroup;
 var infoGroup;
+var settingGroup;
 
 function startControl(){
 	console.log("start control");
@@ -89,6 +90,7 @@ function create(){
 
 	homeGroup = gameStage.add.group();
 	infoGroup = gameStage.add.group();
+	settingGroup = gameStage.add.group();
 
 	gameStage.add.tween(progressObj).to({ y: -50, alpha:0 }, 1000, Phaser.Easing.Cubic.In, true);
 	logoRainball = GameAssets.createAsset( 'rainballLogo', gameStage.world.centerX, gameStage.world.centerY);
@@ -108,11 +110,16 @@ function renderHomeScreen(){
 	homeGroup = home.getScreen();
 	home.addEventListener("START.CLICK",onClickHandler);
 	home.addEventListener("INFO.CLICK",onClickHandler);
+	home.addEventListener("SETTING.CLICK",onClickHandler);
 
 	var info = new InfoPage();
 	infoGroup = info.getScreen();
 	infoGroup.x = -gameStage.world.width;
 	info.addEventListener("INFO.CLICK",onInfoClickHandler);
+
+	var setting = new SettingScreen();
+	settingGroup = setting.getScreen();
+	settingGroup.visible = false;
 
 
 
@@ -128,6 +135,10 @@ function onClickHandler(event){
 		case "INFO.CLICK":
 			gameStage.add.tween(homeGroup).to({  x:gameStage.world.width }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
 			gameStage.add.tween(infoGroup).to({  x:0 }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+		break;
+
+		case "SETTING.CLICK":
+			settingGroup.visible = true;
 		break;
 	}
 	

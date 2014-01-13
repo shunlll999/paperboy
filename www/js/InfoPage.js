@@ -11,7 +11,7 @@
 
 		infoIcon = GameAssets.createAsset("infoIcon", 0, 0 );
 		infoIcon.x = gameStage.world.width - (infoIcon.width);
-		infoIcon.y = settingIcon.y-(infoIcon.height+20);
+		infoIcon.y = gameStage.world.height-(infoIcon.height+50);
 
 		infoGroup.add(backgroundInfo);
 		infoGroup.add(infoIcon);

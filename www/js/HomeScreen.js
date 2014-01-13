@@ -17,10 +17,12 @@
 		homeBtn = GameAssets.createAsset( 'startBtn', gameStage.world.centerX, gameStage.world.centerY);
 		homeBtn.alpha = 0;
 
-		settingIcon = GameAssets.createAsset("settingIcon", 60, 0 );
-		settingIcon.y = gameStage.world.height-(settingIcon.height+50);
+		settingIcon = GameAssets.createAsset("infoIcon", 60, 500 );
+		settingIcon.name = "settingIcon";
+		//settingIcon.y = gameStage.world.height-(settingIcon.height+50);
 
 		infoIcon = GameAssets.createAsset("infoIcon", 60, 0 );
+		infoIcon.name = "infoIcon";
 		infoIcon.y =settingIcon.y-(infoIcon.height+20);
 		
 
@@ -44,9 +46,6 @@
 		infoIcon.events.onInputDown.add(alignButtonAction,this);
 		infoIcon.events.onInputUp.add(alignButtonAction,this);
 
-		var settingScreen = createSettingScreen();
-		settingScreen.visible = false;
-		
 
 		_homeScreenGroup.add(background);
 		_homeScreenGroup.add(footer);
@@ -83,10 +82,11 @@
 				target.scale.x =  target.scale.y = 0.9;
 				console.log(target.key);
 
-				switch(target.key){
+				switch(target.name){
 
 					case "settingIcon":
-						settingScreen.visible = true;
+						target.phase = "SETTING.CLICK";
+						this.startListener(target);
 					break;
 
 					case "infoIcon":
@@ -107,74 +107,7 @@
 			console.log("CLOSE_SETTING_PANEL");
 		}
 
-		function createSettingScreen(){
-
-			var blackAlphaScreen;
-			var settingGroup;
-			var melodyIsMute = false;
-			var sfIsMute = false;
-
-			settingGroup = gameStage.add.group();
-
-			blackAlphaScreen = gameStage.add.graphics(0, 0);
-	    	blackAlphaScreen.beginFill(0x000000,0.8);
-	    	blackAlphaScreen.drawRect(0, 0, assetW, assetH);
-
-	    	settingPanel = GameAssets.createAsset( 'settingPanel', gameStage.world.centerX, gameStage.world.centerY);
-
-	    	melodyBtn = gameStage.add.button(settingPanel.x-((settingPanel.width/2)-50), 0, 'melodyIcon', melodyOnClick, this, 1, 1, 0);
-	    	melodyBtn.y = settingPanel.y-(melodyBtn.height/2)
-
-	    	soundFXBtn = gameStage.add.button(melodyBtn.x+(melodyBtn.width+30), melodyBtn.y, 'soundFX', soundFXOnClick, this, 1, 1, 0);
-
-	    	FBBtn = gameStage.add.button(soundFXBtn.x+(soundFXBtn.width+30), soundFXBtn.y, 'Facebook', fbOnClick, this, 0, 0, 0);
-
-	    	closeBtn = gameStage.add.button(settingPanel.x+((settingPanel.width/2)-70), settingPanel.y-((settingPanel.height/2)+20), 'CloseBTN', closeOnClick, this, 0, 0, 0);
-
-	    	settingGroup.add(blackAlphaScreen);
-	    	settingGroup.add(settingPanel);
-	    	settingGroup.add(melodyBtn);
-	    	settingGroup.add(soundFXBtn);
-	    	settingGroup.add(FBBtn);
-	    	settingGroup.add(closeBtn);
-
-	    	 function melodyOnClick(){
-
-				console.log("Click");
-
-				if( !melodyIsMute ){
-					melodyIsMute = true;
-					melodyBtn.setFrames(0, 0, 1);
-				}else{
-					melodyIsMute = false;
-					melodyBtn.setFrames(1, 1, 0);
-				}
-			}
-
-			 function soundFXOnClick(){
-				if( !sfIsMute ){
-					sfIsMute = true;
-					soundFXBtn.setFrames(0, 0, 1);
-				}else{
-					sfIsMute = false;
-					soundFXBtn.setFrames(1, 1, 0);
-				}
-			}
-
-			function fbOnClick(){
-				
-			}
-
-			function closeOnClick(){
-				settingGroup.visible = false;
-			}
-
-			return settingGroup;
-		}
-
-
 		this.getHomeScreenGroup = function(){ return _homeScreenGroup; };
-		//return homeScreenGroup;
 	};
 
 	HomeScreen.prototype.getScreen = function(){
