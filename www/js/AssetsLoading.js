@@ -10,6 +10,8 @@ function loadingAssets(){
 	gameStage.load.image("settingIcon", "images/settingIcon.png");
 	gameStage.load.image("settingPanel", "images/settingPanel.png");
 
+	gameStage.load.image("gameBG", "images/samplebgGame.png");
+
 	gameStage.load.spritesheet("melodyIcon","images/melodyIcon.png", 66,63);
 	gameStage.load.spritesheet("soundFX","images/sfIcon.png", 66,63);
 	gameStage.load.spritesheet("Facebook","images/fb.png", 66,63);

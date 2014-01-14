@@ -27,9 +27,12 @@ var progressBar;
 var loadingText;
 var homeBtn;
 
+var coreGameCreated = false;
+
 var homeGroup;
 var infoGroup;
 var settingGroup;
+var coreGameGroup;
 
 function startControl(){
 	console.log("start control");
@@ -91,6 +94,7 @@ function create(){
 	homeGroup = gameStage.add.group();
 	infoGroup = gameStage.add.group();
 	settingGroup = gameStage.add.group();
+	coreGameGroup = gameStage.add.group();
 
 	gameStage.add.tween(progressObj).to({ y: -50, alpha:0 }, 1000, Phaser.Easing.Cubic.In, true);
 	logoRainball = GameAssets.createAsset( 'rainballLogo', gameStage.world.centerX, gameStage.world.centerY);
@@ -121,8 +125,12 @@ function renderHomeScreen(){
 	settingGroup = setting.getScreen();
 	settingGroup.visible = false;
 
-
-
+	_coreGame = new CoreGamePage();
+	coreGameGroup = _coreGame.getScreen();
+	coreGameGroup.x = 0;
+	coreGameGroup.y = -_coreGame.stageHeight;
+	coreGameCreated = true;
+	
 }
 
 function onClickHandler(event){
@@ -130,11 +138,12 @@ function onClickHandler(event){
 	switch(event.phase){
 		case "START.CLICK":
 			gameStage.add.tween(homeGroup).to({  y:gameStage.world.height }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+			gameStage.add.tween(coreGameGroup).to({  y:0 }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
 		break;
 
 		case "INFO.CLICK":
-			gameStage.add.tween(homeGroup).to({  x:gameStage.world.width }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
-			gameStage.add.tween(infoGroup).to({  x:0 }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+			gameStage.add.tween(homeGroup).to({  x:gameStage.world.width }, 1000, Phaser.Easing.Cubic.InOut, true,0, false);
+			gameStage.add.tween(infoGroup).to({  x:0 }, 1000, Phaser.Easing.Cubic.InOut, true,0, false);
 		break;
 
 		case "SETTING.CLICK":
@@ -146,11 +155,16 @@ function onClickHandler(event){
 
 function onInfoClickHandler(target){
 
-	gameStage.add.tween(homeGroup).to({  x:0 }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
-	gameStage.add.tween(infoGroup).to({  x:-gameStage.world.width }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+	gameStage.add.tween(homeGroup).to({  x:0 }, 1000, Phaser.Easing.Cubic.InOut, true,0, false);
+	gameStage.add.tween(infoGroup).to({  x:-gameStage.world.width }, 1000, Phaser.Easing.Cubic.InOut, true,0, false);
 
 }
 
 function update(){
 
+	//console.log("coreGameCreateed: "+coreGameCreated);
+	//coreGameGroup.x -=1;
+	if(coreGameCreated){
+		_coreGame.update();
+	}
 }

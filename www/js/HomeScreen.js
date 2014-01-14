@@ -17,7 +17,7 @@
 		homeBtn = GameAssets.createAsset( 'startBtn', gameStage.world.centerX, gameStage.world.centerY);
 		homeBtn.alpha = 0;
 
-		settingIcon = GameAssets.createAsset("infoIcon", 60, 500 );
+		settingIcon = GameAssets.createAsset("settingIcon", 60, 500 );
 		settingIcon.name = "settingIcon";
 		//settingIcon.y = gameStage.world.height-(settingIcon.height+50);
 
