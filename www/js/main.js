@@ -146,7 +146,7 @@ function onClickHandler(event){
 	switch(event.phase){
 		case "START.CLICK":
 			gameStage.add.tween(homeGroup).to({  y:-gameStage.world.height }, 1000, Phaser.Easing.Cubic.InOut, true,0, false);
-			//_coreGame.show();
+			_coreGame.show();
 			gameStage.add.tween(coreGameGroup).to({  y:0 }, 1000, Phaser.Easing.Cubic.InOut, true);
 		break;
 

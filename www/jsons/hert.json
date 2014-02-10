@@ -1,0 +1,21 @@
+{"frames": [
+
+
+{
+	"filename": "hert.png",
+	"frame": {"x":691,"y":434,"w":89,"h":152},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":89,"h":152},
+	"sourceSize": {"w":95,"h":158}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "hero.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":2048},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:b91de2c553c663b47772c49af86f8f7e:cdbde8a5ebcd9cf0e332a00e6e1f006a:eec64b416d3f54b5cb5181ef71d8f236$"
+}
+}

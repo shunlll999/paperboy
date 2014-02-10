@@ -17,6 +17,14 @@ function loadingAssets(){
 	gameStage.load.spritesheet("Facebook","images/fb.png", 66,63);
 	gameStage.load.spritesheet("CloseBTN","images/closeIcon.png", 49,48);
 
-	gameStage.load.atlasJSONHash('idle', 'images/atlas/hero.png', 'jsons/speedUp.json');
+	gameStage.load.atlasJSONHash('idle', 'images/atlas/hero.png', 'jsons/idle.json');
+	gameStage.load.atlasJSONHash('speedup', 'images/atlas/hero.png', 'jsons/speedup.json');
+	gameStage.load.atlasJSONHash('break', 'images/atlas/hero.png', 'jsons/break.json');
+	gameStage.load.atlasJSONHash('shoot', 'images/atlas/hero.png', 'jsons/shoot.json');
+	gameStage.load.atlasJSONHash('die', 'images/atlas/hero.png', 'jsons/die.json');
+	gameStage.load.atlasJSONHash('hert', 'images/atlas/hero.png', 'jsons/hert.json');
+	gameStage.load.atlasJSONHash('jump', 'images/atlas/hero.png', 'jsons/jump.json');
+
+	gameStage.load.atlasJSONHash('hero', 'images/atlas/hero.png', 'jsons/hero.json');
 
 }
