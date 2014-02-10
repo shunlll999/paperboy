@@ -3,15 +3,24 @@
 	this.startListener = Function();
 	this.stageWidth = 0;
 	this.stageHeight = 0;
+	this.platformGame = null;
+	var hero = null;
+
+	var platform;
 
 	function CoreGamePage()
 	{
 		var coreGameGroup = gameStage.add.group();
+		platform = gameStage.add.tileSprite(0, assetH-192, assetW, 256, 'platformGame');
 
-		backgroundGame = gameStage.add.sprite(0, 0, "gameBG");
-		this.stageWidth = backgroundGame.width;
-		this.stageHeight = backgroundGame.height;
-		coreGameGroup.add(backgroundGame);
+		hero = gameStage.add.sprite(0, 0, 'idle');
+		hero.x = 100;
+		hero.y = platform.y-(hero.height-7);
+        hero.animations.add('idle');
+        hero.animations.play('idle', 60, true);
+
+		coreGameGroup.add(platform);
+		coreGameGroup.add(hero);
 
 		this.getCoreGameGroup = function(){ return coreGameGroup; };
 	}
@@ -26,14 +35,17 @@
 		
 	}
 
+	CoreGamePage.prototype.show = function(){
+
+		gameStage.add.tween(platform).to({  y:0 }, 1000, Phaser.Easing.Cubic.Out, true);
+	}
+
 	CoreGamePage.prototype.update = function(){
 
-		this.getCoreGameGroup().x -= 1;
-		//console.log("this.getCoreGameGroup(): width : "+ this.stageWidth);
-		if(this.getCoreGameGroup().x < -(this.stageWidth-gameStage.world.width)){
-			this.getCoreGameGroup().x = 0;
-		}
 
+		//console.log("updateing...");
+		platform.tilePosition.x -= 5;
+		
 	}
 	
 

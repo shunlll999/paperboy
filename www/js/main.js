@@ -15,6 +15,10 @@ var logoRainball;
 var gameWidth = 800;
 var gameHeight = 600;
 
+var fullHDLandscape = { width:1920, height:1080 };
+var ios4LandScape = {width:960, height:640};
+var ios5LandScape = {width:1136, height:640};
+
 var assetH = document.body.clientHeight;
 var assetW = document.body.clientWidth;
 
@@ -33,6 +37,7 @@ var homeGroup;
 var infoGroup;
 var settingGroup;
 var coreGameGroup;
+var _coreGame;
 
 function startControl(){
 	console.log("start control");
@@ -96,20 +101,23 @@ function create(){
 	settingGroup = gameStage.add.group();
 	coreGameGroup = gameStage.add.group();
 
-	gameStage.add.tween(progressObj).to({ y: -50, alpha:0 }, 1000, Phaser.Easing.Cubic.In, true);
+	gameStage.add.tween(progressObj).to({ y: -50, alpha:0 }, 500, Phaser.Easing.Cubic.In, true);
 	logoRainball = GameAssets.createAsset( 'rainballLogo', gameStage.world.centerX, gameStage.world.centerY);
 	logoRainball.alpha = 0;
-	gameStage.add.tween(logoRainball).to({  alpha:1 }, 1000, Phaser.Easing.Cubic.Out, true,1500, false).onComplete.add(destroySplash, this);
+	gameStage.add.tween(logoRainball).to({  alpha:1 }, 500, Phaser.Easing.Cubic.Out, true,1500, false).onComplete.add(destroySplash, this);
 
 }
 
 function destroySplash(){
-	gameStage.add.tween(logoRainball).to({  alpha:0 }, 1000, Phaser.Easing.Cubic.In, true,3000, false).onComplete.add(renderHomeScreen, this);
+	gameStage.add.tween(logoRainball).to({  alpha:0 }, 500, Phaser.Easing.Cubic.In, true,3000, false).onComplete.add(renderHomeScreen, this);
 }
 
 function renderHomeScreen(){
 
 	//var home = new GameStageMeneger();
+
+	
+
 	var home = new HomeScreen();
 	homeGroup = home.getScreen();
 	home.addEventListener("START.CLICK",onClickHandler);
@@ -128,7 +136,7 @@ function renderHomeScreen(){
 	_coreGame = new CoreGamePage();
 	coreGameGroup = _coreGame.getScreen();
 	coreGameGroup.x = 0;
-	coreGameGroup.y = -_coreGame.stageHeight;
+	coreGameGroup.y = assetH;
 	coreGameCreated = true;
 	
 }
@@ -137,8 +145,9 @@ function onClickHandler(event){
 	console.log(" KEY "+event.phase);
 	switch(event.phase){
 		case "START.CLICK":
-			gameStage.add.tween(homeGroup).to({  y:gameStage.world.height }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
-			gameStage.add.tween(coreGameGroup).to({  y:0 }, 2000, Phaser.Easing.Cubic.InOut, true,0, false);
+			gameStage.add.tween(homeGroup).to({  y:-gameStage.world.height }, 1000, Phaser.Easing.Cubic.InOut, true,0, false);
+			//_coreGame.show();
+			gameStage.add.tween(coreGameGroup).to({  y:0 }, 1000, Phaser.Easing.Cubic.InOut, true);
 		break;
 
 		case "INFO.CLICK":

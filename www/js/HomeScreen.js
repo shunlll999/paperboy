@@ -29,7 +29,7 @@
 		GameAssets.ratio( background, gameWidth*ratioWidth, gameHeight*ratioHeight);
 
 		background.alpha = 0;
-		gameStage.add.tween(background).to({  alpha:1 }, 2000, null, true);
+		gameStage.add.tween(background).to({  alpha:1 }, 200, null, true);
 		gameStage.add.tween(footer).to({  y:gameStage.world.height-footer.height }, 2000, Phaser.Easing.Cubic.Out, true,500, false);
 		gameStage.add.tween(logoGame).to({  y:gameStage.world.centerY-150, alpha:1 }, 2000, Phaser.Easing.Cubic.Out, true,100, false);
 		gameStage.add.tween(homeBtn).to({  y:gameStage.world.centerY+100, alpha:1 }, 2000, Phaser.Easing.Cubic.Out, true,200, false).onComplete.add(loopTween,this);
